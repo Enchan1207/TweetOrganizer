@@ -3,7 +3,7 @@
 #
 from lib.statusfilter import StatusFilter
 from lib.statusqueue import StatusQueue
-import threading, time, queue
+import threading, time
 from lib.crawler import Crawler
 
 class CrawlThread(threading.Thread):

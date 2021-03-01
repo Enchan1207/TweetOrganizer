@@ -6,7 +6,7 @@ from lib.crawler import Crawler
 from lib.eliminatethread import EliminateThread
 from lib.statusqueue import StatusQueue
 
-import os, sys, threading, queue, time
+import os, sys, threading, time
 import dotenv, tweepy
 
 from lib.crawlthread import CrawlThread

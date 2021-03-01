@@ -2,7 +2,7 @@
 # eliminatethread.py - ツイート削除スレッド
 #
 from lib.statusqueue import StatusQueue
-import threading, time, queue
+import threading
 from lib.eliminator import Eliminator
 
 class EliminateThread(threading.Thread):
