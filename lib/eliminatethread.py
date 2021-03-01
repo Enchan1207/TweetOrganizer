@@ -19,6 +19,7 @@ class EliminateThread(threading.Thread):
             status = self.queue.get_status()
             if status is not None:
                 # 消す
+                print(f"Delete: {status.id}")
                 self.eliminator.eliminate(status)
 
             # APIリミット対策 兼 スレッド終了リクエストの受理

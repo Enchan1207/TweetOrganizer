@@ -37,9 +37,9 @@ def main():
     # ログインユーザの情報を吐き出す(auth.status的なものが見つからなかったのでこれで妥協)
     try:
         target_user_object = api.me()
-        print(target_user_object.name)
+        print(f"Fetch target: {target_user_object.name}(@{target_user_object.screen_name})")
     except tweepy.TweepError:
-        print("\033[31mERROR\033[0m: Couldn't get user object.Make sure if you have passed a valid token.")
+        print("\033[31mERROR\033[0m: Couldn't get user object.Make sure whether you have passed a valid token.")
         return
     
     # ツイート収集・削除を行うスレッドをそれぞれ起動し、キューを直結
@@ -48,6 +48,7 @@ def main():
     eliminatethread = EliminateThread(Eliminator(api), tweetqueue, endreq_event)
     crawlthread.start()
     eliminatethread.start()
+    print("Process started.")
 
     try:
         while True:
