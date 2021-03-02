@@ -3,7 +3,7 @@
 #
 from typing import Optional
 from datetime import datetime
-import json
+import json, re
 
 import tweepy
 
@@ -47,7 +47,21 @@ class StatusFilter:
         entities_count = len(status.extended_entities["media"]) if hasattr(
             status, "extended_entities") else 0
 
+        # ツイートに含まれるURLの一覧
+        if "urls" in status.entities:
+            embedded_urls = list(map(lambda url: url["expanded_url"], status.entities["urls"]))
+        else:
+            embedded_urls = []
+
         # -- フィルタリング処理 --
+
+        # Qiitaのリンクが貼ってある場合は除外 (クソ実装)
+        if len(list(filter(lambda url: url.startswith("https://qiita.com/"), embedded_urls))) > 0:
+            return False
+
+        # 直近1時間以内のツイートは除外(会話がわけわかんなくなるので)
+        if delta_second < 3600:
+            return False
 
         # メディアエンティティを持たず
         # 自分以外へのリプライでなく
