@@ -19,7 +19,11 @@ class EliminateThread(threading.Thread):
             status = self.queue.get_status()
             if status is not None:
                 # 消す
-                print(f"Delete: {status.id}")
+                create_date_str = status.created_at.strftime("%Y/%m/%d %H:%M:%S")
+                status_id = status.id
+                sliced_text = status.text[:30].replace("\n", " ")
+                status_description = f"@{status.user.screen_name} at {create_date_str}: \n\t{sliced_text}… \n\t(identifier: {status_id} {status.favorite_count} likes, {status.retweet_count} RT)"
+                print(status_description)
                 self.eliminator.eliminate(status)
 
             # APIリミット対策 兼 スレッド終了リクエストの受理
