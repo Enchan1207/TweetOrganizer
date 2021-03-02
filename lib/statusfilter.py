@@ -58,4 +58,19 @@ class StatusFilter:
            and favorite_count < 4 and retweet_count < 1:
             return True
 
+        # メディアエンティティがあっても、
+        # 3favを上回らなかった自分のツイートならば
+        # 消す
+        if entities_count > 0\
+           and (not is_status_retweet) and favorite_count < 3:
+
+            return True
+
+        # リツイートであっても、RT数が5以上またはfav数が20以上でなければ
+        # 消す
+        if is_status_retweet\
+           and (favorite_count < 20 and retweet_count < 5):
+
+            return True
+
         return False
