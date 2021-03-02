@@ -6,7 +6,7 @@ from lib.crawler import Crawler
 from lib.eliminatethread import EliminateThread
 from lib.statusqueue import StatusQueue
 
-import os, sys, threading, time
+import os, sys, threading
 import dotenv, tweepy
 
 from lib.crawlthread import CrawlThread
@@ -51,8 +51,8 @@ def main():
     print("Process started.")
 
     try:
-        while True:
-            time.sleep(1000)
+        crawlthread.join()
+        eliminatethread.join()
     except KeyboardInterrupt:
         print("Ctrl+C")
         endreq_event.set()
