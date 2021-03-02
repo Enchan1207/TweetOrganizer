@@ -21,7 +21,8 @@ class Crawler():
         statuses = self.api.user_timeline(
             screen_name = "EnchanLab",
             count = 200,
-            trim_user = True,
-            exclude_replies = False)
+            trim_user = False,
+            exclude_replies = False,
+            include_rts = True)
 
         return statuses
